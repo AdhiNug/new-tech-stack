@@ -33,21 +33,21 @@
                 <div class="mb-3">
                     <div class="fs-2 text-center"><b>Github & Gitlab</b></div>
                 </div>
-                @if (is_null($gits))
+                @if ($gits->isEmpty())
+                    <div class="row">
+                        <p>Default Git Description</p>
+                    </div>
+                @else
                     <div class="row">
                         @foreach ($gits as $item)
                             <div class="col-md-6 mb-3">
                                 <div style="text-align: left">
-                                    <div>{{ $item['description'] }}</div>
+                                    <div>{{ $item->description }}</div>
                                     <a style="text-decoration:none" href=""><b style="color: black">Read more</b></a>&nbsp;<i class="fa-solid fa-arrow-right"></i>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                @else
-                <div class="row">
-                    <p>Default Description</p>
-                </div>
                 @endif
             </div>
             <div class="col-md-4 mb-3">
@@ -62,16 +62,9 @@
                 <div>
                     <div class="fs-2 text-left"><b>Skill</b></div>
                 </div>
-                @if ($skill && $skill->description)
-                    <div>
-                        <div style="text-align: left">{{ $skill->description }}</div>
-                    </div>
-                @else
-                    <div style="align-content: left">
-                        <p>Default Description</p>
-                    </div>
-                @endif
+                <div style="text-align: left">{{ $skill->description ?? 'Default Skill Description' }}</div>
             </div>
+
             @if (is_array($skill->detail_skill) && count($skill->detail_skill) > 0)
                 @php
                     $chunks = array_chunk($skill->detail_skill, ceil(count($skill->detail_skill) / 2));
@@ -100,13 +93,9 @@
                 <div>
                     <div class="fs-2 text-left"><b>My Porto</b></div>
                 </div>
-                @if ($porto && $porto->description)
-                    <div class="mb-5">
-                        <div style="text-align: left">{{ $porto->description }}</div>
-                    </div>
-                @else
-                    <p>Default Description</p>
-                @endif
+                <div class="mb-5">
+                    <div style="text-align: left">{{ $porto->description ?? 'Default Portofolio Description' }}</div>
+                </div>
             </div>
             <div class="col-md-2">
                 <div class="mb-3">

@@ -17,21 +17,25 @@ class DashboardController extends Controller
     {
         $header = Header::first();
         $gits = Git::all();
-        $skill = Skill::first();
+        // dd($gits);
         $porto = Porto::first();
-        if (!$skill) {
-            $skill = (object) [
-                'description' => 'default description',
-                'detail_skill' => []
-            ];
-        } else {
-            if (!is_string($skill->description)) {
-                $skill->description = 'default description';
-            }
-            if (!is_array($skill->detail_skill)) {
-                $skill->detail_skill = [];
-            }
-        }
+        $skill = Skill::first() ?? new Skill();
+        // $skill->description = is_string($skill->description) ? $skill->description : 'default description';
+        // $skill->detail_skill = is_array($skill->detail_skill) ? $skill->detail_skill : [];
+
+        // if (!$skill) {
+        //     $skill = (object) [
+        //         'description' => 'default description',
+        //         'detail_skill' => []
+        //     ];
+        // } else {
+        //     if (!is_string($skill->description)) {
+        //         $skill->description = 'default description';
+        //     }
+        //     if (!is_array($skill->detail_skill)) {
+        //         $skill->detail_skill = [];
+        //     }
+        // }
 
         return view('layouts.main', compact('gits', 'header', 'skill', 'porto'));
     }
